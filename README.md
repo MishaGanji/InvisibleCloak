@@ -10,7 +10,7 @@ Using OpenCV and Python, this project detects a specific colored cloak and repla
 
 ---
 
-### 🔹 Step 2: Person Wearing Cloak  
+### 🔹 Step 2: Sample Image  
 ![Person Wearing Cloak](static/2.png)
 
 ---
