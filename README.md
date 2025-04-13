@@ -5,9 +5,18 @@ Using OpenCV and Python, this project detects a specific colored cloak and repla
 
 ## ✨ Demo
 
-| Background Captures | Sample Image | Final Frame |
-|----------------|---------------------|-------------|
-| ![](static/1.png) | ![](static/2.png) | ![](static/3.png) |
+### 🔹 Step 1: Background Capture  
+![Background](static/1.png)
+
+---
+
+### 🔹 Step 2: Person Wearing Cloak  
+![Person Wearing Cloak](static/2.png)
+
+---
+
+### 🔹 Step 3: Final Output (Cloak Becomes Invisible!)  
+![Final Frame](static/3.png)
 
 
 ## 🚀 Features
