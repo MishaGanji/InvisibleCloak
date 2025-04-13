@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🧥 Invisibility Cloak using Color Detection and Segmentation
 
 A fun and magical project that makes you invisible — just like Harry Potter!  
