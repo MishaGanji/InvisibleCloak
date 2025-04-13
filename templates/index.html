@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter's Invisible Cloak</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Magical Invisible Cloak</h1>
+            <p class="tagline">Experience the Harry Potter magic with your webcam!</p>
+        </div>
+
+        <div class="controls">
+            <label for="colorSelect">Choose Your Cloak Color:</label>
+            <select id="colorSelect">
+                {% for color in colors %}
+                <option value="{{ color }}" {% if color == "red" %}selected{% endif %}>{{ color|capitalize }}</option>
+                {% endfor %}
+            </select>
+            <button id="captureBackground" class="btn">Capture Background</button>
+            <button id="checkCamera" class="btn">Check Camera</button>
+        </div>
+        
+        <div class="color-preview-container">
+            {% for color in colors %}
+            <div class="color-preview {{ color }}" data-color="{{ color }}" title="{{ color|capitalize }}"></div>
+            {% endfor %}
+        </div>
+
+        <div class="video-container">
+            <div class="video-wrapper">
+                <img id="videoFeed" src="{{ url_for('video') }}" alt="Invisible Cloak Video Feed">
+                <div class="video-status">Connecting to camera...</div>
+            </div>
+            <div class="instructions">
+                <h3>How to use:</h3>
+                <ol>
+                    <li>Make sure there's no one in the frame</li>
+                    <li>Click "Capture Background"</li>
+                    <li>Select your cloak color</li>
+                    <li>Hold up your colored cloth</li>
+                    <li>Watch the magic happen!</li>
+                </ol>
+                <div class="tip">
+                    <p><strong>Tip:</strong> Use a solid color cloth with good lighting</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Created with Python, Flask and OpenCV</p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Check camera status
+            setTimeout(checkCameraStatus, 1000);
+            
+            // Color selection via dropdown
+            $('#colorSelect').change(function() {
+                updateColor($(this).val());
+            });
+            
+            // Color selection via color blocks
+            $('.color-preview').click(function() {
+                const selectedColor = $(this).data('color');
+                $('#colorSelect').val(selectedColor);
+                updateColor(selectedColor);
+            });
+            
+            // Capture background button
+            $('#captureBackground').click(function() {
+                $(this).text('Capturing...');
+                
+                $.ajax({
+                    url: '/capture_background',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            showNotification('Background captured successfully!', 'success');
+                        } else {
+                            showNotification('Failed to capture background', 'error');
+                        }
+                    },
+                    error: function() {
+                        showNotification('Error capturing background', 'error');
+                    },
+                    complete: function() {
+                        $('#captureBackground').text('Capture Background');
+                    }
+                });
+            });
+            
+            // Check camera button
+            $('#checkCamera').click(function() {
+                $(this).text('Checking...');
+                checkCameraStatus();
+            });
+            
+            // Function to check camera status
+            function checkCameraStatus() {
+                $.ajax({
+                    url: '/check_camera',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            $('.video-status').removeClass('error').addClass('connected').text('Camera connected');
+                            setTimeout(function() {
+                                $('.video-status').fadeOut();
+                            }, 3000);
+                        } else {
+                            $('.video-status').removeClass('connected').addClass('error').text('Camera not connected');
+                            showNotification('Camera not detected. Please check your webcam.', 'error');
+                        }
+                    },
+                    error: function() {
+                        $('.video-status').addClass('error').text('Error checking camera');
+                    },
+                    complete: function() {
+                        $('#checkCamera').text('Check Camera');
+                    }
+                });
+            }
+            
+            // Function to update color
+            function updateColor(color) {
+                // Update color preview
+                $('.color-preview').removeClass('active');
+                $(`.color-preview[data-color="${color}"]`).addClass('active');
+                
+                // Send color update to server
+                $.ajax({
+                    url: `/set_color/${color}`,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            showNotification(`Color changed to ${color}`, 'success');
+                        }
+                    }
+                });
+            }
+            
+            // Notification function
+            function showNotification(message, type) {
+                $('.notification').remove();
+                const notification = $(`<div class="notification ${type}">${message}</div>`);
+                $('body').append(notification);
+                
+                setTimeout(() => {
+                    notification.addClass('fade-out');
+                    setTimeout(() => notification.remove(), 500);
+                }, 3000);
+            }
+            
+            // Set initial active color
+            $(`.color-preview[data-color="red"]`).addClass('active');
+            
+            // Handle video feed errors
+            $('#videoFeed').on('error', function() {
+                $(this).addClass('error');
+                $('.video-status').addClass('error').text('Video feed error');
+                showNotification('Error loading video feed', 'error');
+            });
+        });
+    </script>
+</body>
+</html>

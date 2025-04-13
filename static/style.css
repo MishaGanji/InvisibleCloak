@@ -1,0 +1,331 @@
+/* Harry Potter Theme Styling */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pirata+One&display=swap');
+
+:root {
+    --gryffindor-red: #740001;
+    --gryffindor-gold: #D3A625;
+    --hogwarts-blue: #0E1A40;
+    --parchment: #E8DDCB;
+    --spell-blue: #7DF9FF;
+    --text-color: #222;
+    --dark-text: #111;
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cinzel', serif;
+    background-color: var(--hogwarts-blue);
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/placeholders/100/dark-texture.png');
+    color: var(--text-color);
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: var(--parchment);
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/placeholders/100/parchment-texture.png');
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    padding: 25px;
+    position: relative;
+    border: 3px solid var(--gryffindor-gold);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--gryffindor-red);
+    padding-bottom: 15px;
+}
+
+h1 {
+    font-family: 'Pirata One', cursive;
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: var(--gryffindor-red);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}
+
+.tagline {
+    font-size: 1.2em;
+    color: var(--dark-text);
+    font-style: italic;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 15px;
+    background-color: rgba(115, 0, 1, 0.1);
+    padding: 15px;
+    border-radius: var(--border-radius);
+}
+
+label {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--dark-text);
+}
+
+select {
+    padding: 8px 15px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid var(--gryffindor-gold);
+    background-color: var(--parchment);
+    color: var(--dark-text);
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-family: 'Cinzel', serif;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--gryffindor-red);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--gryffindor-gold);
+    color: var(--dark-text);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Color preview blocks */
+.color-preview-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: rgba(211, 166, 37, 0.1);
+    padding: 15px;
+    border-radius: var(--border-radius);
+}
+
+.color-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.color-preview:hover {
+    transform: scale(1.1);
+}
+
+.color-preview.active {
+    border: 3px solid var(--gryffindor-red);
+    box-shadow: 0 0 10px var(--spell-blue);
+}
+
+/* Color classes */
+.red { background-color: red; }
+.blue { background-color: blue; }
+.green { background-color: green; }
+.yellow { background-color: yellow; }
+
+/* Video container */
+.video-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.video-wrapper {
+    flex: 3;
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--gryffindor-gold);
+}
+
+#videoFeed {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.video-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 15px;
+    background-color: rgba(14, 26, 64, 0.8);
+    color: white;
+    border-radius: 15px;
+    font-size: 0.9em;
+    font-family: 'Cinzel', serif;
+}
+
+.video-status.error {
+    background-color: rgba(116, 0, 1, 0.8);
+}
+
+.video-status.connected {
+    background-color: rgba(0, 100, 0, 0.8);
+}
+
+.instructions {
+    flex: 1;
+    background-color: rgba(211, 166, 37, 0.1);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--gryffindor-gold);
+    position: relative;
+}
+
+.instructions::before {
+    content: "⚡";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--parchment);
+    padding: 0 10px;
+    font-size: 1.2em;
+}
+
+.instructions h3 {
+    margin-bottom: 15px;
+    color: var(--gryffindor-red);
+    font-family: 'Pirata One', cursive;
+    font-size: 1.5em;
+}
+
+.instructions ol {
+    padding-left: 25px;
+}
+
+.instructions li {
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.tip {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--gryffindor-gold);
+}
+
+.tip p {
+    font-style: italic;
+}
+
+.tip strong {
+    color: var(--gryffindor-red);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 25px;
+    color: var(--dark-text);
+    font-size: 0.9em;
+    border-top: 2px solid var(--gryffindor-red);
+    padding-top: 15px;
+}
+
+.footer p::before {
+    content: "✨ ";
+}
+
+.footer p::after {
+    content: " ✨";
+}
+
+/* Notification system */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    font-family: 'Cinzel', serif;
+    border: 2px solid var(--gryffindor-gold);
+}
+
+.notification.success {
+    background-color: rgba(0, 100, 0, 0.9);
+}
+
+.notification.error {
+    background-color: rgba(116, 0, 1, 0.9);
+}
+
+.notification.fade-out {
+    animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fadeOut {
+    from {opacity: 1; transform: translateY(0);}
+    to {opacity: 0; transform: translateY(-20px);}
+}
+
+/* Wand cursor */
+button, select, .color-preview {
+    cursor: url('https://cdnjs.cloudflare.com/api/placeholder/20/40'), pointer;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .video-container {
+        flex-direction: column;
+    }
+    
+    .instructions {
+        margin-top: 15px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    select, .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    h1 {
+        font-size: 2.5em;
+    }
+}
